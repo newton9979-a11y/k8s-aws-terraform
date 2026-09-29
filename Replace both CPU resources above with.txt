@@ -2,6 +2,14 @@ One correction
 
 AWS Auto Scaling target tracking on CPU is sufficient by itself for CPU scaling. You don't actually need separate scale-out and scale-in CPU policies.
 '''
+CPU > approximately 70%
+        ↓
+Add worker
+
+CPU decreases
+        ↓
+ASG can remove worker
+'''
 So I recommend using the following simpler CPU policy instead.
 
 
