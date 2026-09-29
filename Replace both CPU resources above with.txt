@@ -1,0 +1,28 @@
+One correction
+
+AWS Auto Scaling target tracking on CPU is sufficient by itself for CPU scaling. You don't actually need separate scale-out and scale-in CPU policies.
+'''
+So I recommend using the following simpler CPU policy instead.
+
+
+'''
+resource "aws_autoscaling_policy" "worker_cpu" {
+
+  name = "worker-cpu-target-tracking"
+
+  autoscaling_group_name = aws_autoscaling_group.workers.name
+
+  policy_type = "TargetTrackingScaling"
+
+  target_tracking_configuration {
+
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization"
+    }
+
+    target_value = 70
+
+    disable_scale_in = false
+  }
+}
+'''
